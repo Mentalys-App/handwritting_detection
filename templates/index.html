@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwriting Analysis for Mental Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                Handwriting Analysis for Mental Health
+            </h1>
+
+            <form id="upload-form" action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="upload-area flex flex-col items-center p-6 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100">
+                    <div class="text-center space-y-2">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="text-sm text-gray-600">
+                            <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                <span>Upload handwriting image</span>
+                                <input id="file-upload" name="file" type="file" class="sr-only" accept=".png,.jpg,.jpeg,.gif,.bmp" required>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                    </div>
+                </div>
+
+                <div id="file-info" class="text-center text-sm text-gray-600"></div>
+
+                <div class="text-center">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Analyze Handwriting
+                    </button>
+                </div>
+            </form>
+
+            {% if error %}
+            <div class="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if result %}
+            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
+                <h2 class="font-bold text-lg mb-2 text-center text-blue-900">Analysis Result</h2>
+                <div class="space-y-2">
+                    <p class="text-center">
+                        <span class="{% if result == 'No Mental Health Condition' %}text-green-600 font-bold{% else %}text-red-600 font-bold{% endif %} text-xl">
+                            {{ result }}
+                        </span>
+                    </p>
+                    <p class="text-center">
+                        <span class="font-semibold">Confidence:</span>
+                        <span class="text-blue-600 font-bold">{{ confidence }}</span>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="mt-8 text-sm text-gray-500">
+                This tool is for educational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-upload');
+        const fileInfo = document.getElementById('file-info');
+
+        // Display selected filename
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                fileInfo.textContent = `Selected file: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            } else {
+                fileInfo.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
