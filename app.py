@@ -44,7 +44,7 @@ def predict_image(image, temperature=1.5):
         scaled_prediction = 1 / (1 + np.exp(-(np.log(raw_prediction / (1 - raw_prediction)) / temperature)))
         
         # Binary result - no intermediate uncertain state
-        result = "Mental Health Condition" if scaled_prediction > 0.5 else "No Mental Health Condition"
+        result = "Potential Mental Health Condition" if scaled_prediction > 0.5 else "No Mental Health Condition"
         
         return result, scaled_prediction
     except Exception as e:
