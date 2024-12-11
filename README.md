@@ -13,7 +13,7 @@ python --version
 ## Installation
 Clone this repository:
 ```bash
-git clone https://github.com/yourusername/mental-health-detection.git
+git clone https://github.com/Mentalys-App/handwritting_detection.git
 cd mental-health-detection
 ```
 
@@ -22,4 +22,14 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-## Project Structure
+## How to Run Flask Application
+To start the Flask application, run:
+
+``` bash
+python app.py
+```
+
+The server will start, and you can access the application at:
+``` bash
+http://127.0.0.1:5000/
+```
