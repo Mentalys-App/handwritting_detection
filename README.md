@@ -14,7 +14,7 @@ python --version
 Clone this repository:
 ```bash
 git clone https://github.com/Mentalys-App/handwritting_detection.git
-cd mental-health-detection
+cd handwritting_detection
 ```
 
 Install dependencies:
